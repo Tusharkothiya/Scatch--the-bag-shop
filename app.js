@@ -1,7 +1,11 @@
-require('dotenv').config()
+require('dotenv').config();
 const express = require('express');
 const session = require('express-session');
 const path = require('path');
+const db = require('./configs/database-connection');
+const userRouter = require('./routes/users.routes');
+const productRouter = require('./routes/products.routes');
+const ownerRouter = require('./routes/owner.routes');
 
 const app = express();
 
@@ -14,15 +18,15 @@ app.use(session({
 }));
 app.use(express.static(path.join(__dirname , 'public')));
 
+app.use('/users', userRouter);
+app.use('/products', productRouter);
+app.use('/owners', ownerRouter);
+
 const template_path = path.join(__dirname, '/templates/views');
 app.set('view engine', 'ejs');
 app.set('views', template_path);
 
 
-
-app.get('/', (req,res) => {
-    res.send('server created')
-});
 
 const port = process.env.PORT || 3000;
 
