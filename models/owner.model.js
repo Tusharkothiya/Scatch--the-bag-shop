@@ -22,7 +22,6 @@ let ownerSchema = new mongoose.Schema(
         },
         picture: {
             type: String,
-            required: true
         },
         gstin: String
     },
